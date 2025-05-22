@@ -1,25 +1,50 @@
 # envex
 
-This is a javascript npm package that extracts all env variables from the codebase.
+envex extracts environment variables from your codebase.
 
-<!-- It provides both package scenarios: -->
-<!---->
-<!-- - library -->
-<!-- - binary -->
+It provides both package scenarios:
 
-<!-- ## Usage -->
+- library
+- binary
 
-<!-- - Clone using `@pr4j3sh/frames` -->
-<!---->
-<!-- ```bash -->
-<!-- npm create @pr4j3sh/frames@latest javascript mypkg -->
-<!-- ``` -->
-<!---->
-<!-- - Run using -->
-<!---->
-<!-- ```bash -->
-<!-- npm run dev -->
-<!-- ``` -->
+## Usage
+
+### as binary
+
+- Install `@prajeshhh/envex` globally
+
+```bash
+npm i -g @prajeshhh/envex
+```
+
+- Run using `envex`
+
+```bash
+envex <path/to/your/codebase>
+```
+
+### as library
+
+- Install `@prajeshhh/envex` locally
+
+```bash
+npm i @prajeshhh/envex
+```
+
+- create `index.js`
+
+```js
+const Extractor = require("@prajeshhh/envex");
+const { resolve } = require("node:path");
+
+const e = new Extractor(resolve("path/to/your/codebase"), ["ignore", "list"])
+  .scan()
+  .toList();
+
+console.log(e);
+```
+
+> you can define, file/directory names not to scan in ignore list array
 
 ## Reference
 

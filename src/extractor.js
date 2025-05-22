@@ -2,7 +2,7 @@ const { readdirSync, lstatSync, readFileSync } = require("node:fs");
 const { join } = require("node:path");
 
 class Extractor {
-  constructor(dirPath, ignore = ["node_modules", "package-lock.json", "venv"]) {
+  constructor(dirPath, ignore = ["node_modules", "package-lock.json", "venv", ".git"]) {
     if (!dirPath) throw new Error("directory path cannot be empty");
     this.dirPath = dirPath;
     this.ignore = ignore;
@@ -16,6 +16,7 @@ class Extractor {
       const key = match[1] || match[2];
       this.env.add(key);
     }
+    return this;
   }
 
   scan(dirPath = this.dirPath) {
@@ -27,9 +28,10 @@ class Extractor {
           const file = readFileSync(filePath, "utf-8");
           this.extract(file);
         } else {
-          this.scan(filePath); // recursive scan
+          this.scan(filePath);
         }
       });
+    return this;
   }
 
   toList() {
@@ -38,6 +40,7 @@ class Extractor {
 
   print() {
     this.env.forEach(key => console.log(key));
+    return this;
   }
 }
 

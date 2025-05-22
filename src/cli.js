@@ -1,27 +1,19 @@
 const { Command } = require("commander");
+const { resolve } = require("node:path");
 const Extractor = require("./extractor");
 
 const program = new Command();
 
 program
-  .name("env-extractor")
-  .description("Extract and print all used process.env keys from a directory")
+  .name("envex")
+  .description("extracts environment variables from your codebase")
   .version("1.0.0");
 
 program
-  .argument("[dir]", "directory to scan", ".")
-  .option("-p, --print", "print env vars to terminal line by line")
-  .action((dir, options) => {
-    const extractor = new Extractor(dir);
-    extractor.scan();
-
-    if (options.print) {
-      extractor.toList()
-        .sort()
-        .forEach((key) => console.log(key));
-    } else {
-      console.log("\n❗ Use --print to output env variables.\n");
-    }
+  .argument("[path]", "path to your codebase", ".")
+  .action((path, options) => {
+    const p = resolve(path);
+    new Extractor(p).scan().print()
   });
 
 
