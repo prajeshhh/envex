@@ -1,9 +1,8 @@
 #!/usr/bin/env node
 
-const { greet } = require("./src/utils");
+const program = require("./src/cli");
+const Extractor = require("./src/extractor");
 
-console.log(greet("frames"));
+program.parse()
 
-module.exports = {
-  greet,
-};
+module.exports = Extractor

@@ -15,19 +15,3 @@ try {
   console.error("CJS build failed:", err);
   process.exit(1);
 }
-
-try {
-  esbuild.buildSync({
-    entryPoints: ["index.js"],
-    outfile: "./dist/index.mjs",
-    format: "esm",
-    bundle: true,
-    minify: true,
-    platform: "browser",
-    target: ["esnext"],
-  });
-  console.log("ESM build successful");
-} catch (err) {
-  console.error("ESM build failed:", err);
-  process.exit(1);
-}
